@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="col-md-12">
+          [[${pageRequestDTO}]]
+          [[${pageResponseDTO}]]
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Bordered Table</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">no</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="todo : ${pageResponseDTO.list}">
+                    <td>[[${todo.tno}]]</td>
+                    <td>[[${todo.title}]]</td>
+                    <td>[[${todo.writer}]]</td>
+                    <td>[[${todo.dueDate}]]</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+  
+      <script layout:fragment="script" th:inline="javascript">
+        const {page,size} = [[${pageRequestDTO}]]
+        console.log(page,size);
+  
+        const {total} = [[${pageResponseDTO}]]
+        console.log("total : " + total);
+  
+      </script>
+  
+  </body>
+  </html>
